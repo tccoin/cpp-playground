@@ -7,7 +7,7 @@
  * };
  */
 
-// first try
+// first try (input is modified)
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
@@ -20,6 +20,21 @@ public:
             if(current->next==visited) return true;
             current->next = visited;
             current = next;
+        }
+        return false;
+    }
+};
+
+// second try (if loop exists, distance between two heads will decreace by 1 after each step so finally meet)
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode * head_fast = head;
+        ListNode * head_slow = head;
+        while(head_fast && head_fast->next){
+            head_fast = head_fast->next->next;
+            head_slow = head_slow->next;
+            if(head_fast==head_slow) return true;
         }
         return false;
     }
