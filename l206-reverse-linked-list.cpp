@@ -9,24 +9,31 @@
  * };
  */
 
-// class Solution {
-// public:
-//     ListNode* reverseList(ListNode* head) {
-//         if(!head){ return head; }
-//         ListNode* last = head;
-//         ListNode* current = last->next;
-//         ListNode* next;
-//         head->next = nullptr;
-//         while(current){
-//             next = current->next;
-//             current->next = last;
-//             last = current;
-//             current = next;
-//         }
-//         return last;
-//     }
-// };
+// [1,2,3,4,5]
+// [1,2]
+// [1]
+// []
 
+// first try (iterative)
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(!head){ return head; }
+        ListNode* last = head;
+        ListNode* current = last->next;
+        ListNode* next;
+        head->next = nullptr;
+        while(current){
+            next = current->next;
+            current->next = last;
+            last = current;
+            current = next;
+        }
+        return last;
+    }
+};
+
+// second try (iterative)
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
@@ -40,5 +47,17 @@ public:
             current = next;
         }
         return last;
+    }
+};
+
+// third try (recursive)
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(!head || !head->next) return head;
+        ListNode* end = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return end;
     }
 };
