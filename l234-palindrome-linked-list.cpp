@@ -57,6 +57,7 @@ public:
 };
 
 // second attempt, change original list, O(N)+O(1), 226ms+110MB
+// note: Always set correct prev, curr and next value. DO NOT CHEAT!
 class Solution
 {
 public:
@@ -74,16 +75,16 @@ public:
         // reverse left-half list
         ListNode *prev = nullptr;
         ListNode *curr = head;
-        ListNode *next = nullptr;
+        ListNode *next = head->next;
         for (int i = 0; i < listSize / 2; i++)
         {
-            next = curr->next;
             curr->next = prev;
             prev = curr;
             curr = next;
+            next = curr->next;
         }
         left = prev;
-        right = listSize % 2 == 0 ? curr : curr->next;
+        right = listSize % 2 == 0 ? curr : next;
         // check if palindrome
         bool flag = true;
         for (int i = 0; i < listSize / 2; i++)
